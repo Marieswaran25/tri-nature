@@ -1,0 +1,43 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+
+.modal {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.801);
+    @include flex-model-nogap(row, center, center);
+    .close-icon {
+        align-self: flex-start;
+        position: fixed;
+        right: 15px;
+        top: 15px;
+        cursor: pointer;
+        > svg {
+            width: 40px;
+            height: 40px;
+            fill: white !important;
+            > path {
+                fill: white;
+            }
+        }
+    }
+    > div {
+        animation: fadein 0.7s ease;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
