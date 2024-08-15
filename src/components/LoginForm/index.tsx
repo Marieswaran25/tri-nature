@@ -75,7 +75,7 @@ export const LoginForm = () => {
             />
             {errors?.root?.message && <Typography type="p2" weight="semibold" text={errors?.root?.message} color="red" />}
             <Button
-                label={<Typography type="p2" weight="semibold" text={'Create account'} color="white" />}
+                label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />}
                 buttonType="primary"
                 backgroundColor={colors.SS5}
                 id="sign-up-btn"
