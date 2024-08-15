@@ -12,7 +12,6 @@
         "format:check": "prettier --check \"{src,scripts,__tests__,.}/**/*.{ts,tsx,scss}\" \"**/*.js\" \"**/*.ts\" \"**/*.json\" \"README.md\" ",
         "format:fix": "prettier --write \"{src,scripts,__tests__,.}/**/*.{ts,tsx,scss}\" \"**/*.js\" \"**/*.ts\" \"**/*.json\" \"README.md\" ",
         "prepare": "husky install",
-        "postinstall": "prisma generate",
         "prisma:generate": "npx prisma generate",
         "prisma:studio": "npx prisma studio"
     },
