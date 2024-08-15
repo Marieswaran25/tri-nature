@@ -1,0 +1,122 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+.nav-bar {
+    background-color: white;
+    width: 100%;
+    @include tablet {
+        display: none;
+    }
+    > .nav-bar-container {
+        @include flex-model(row, center, space-between, 1rem);
+        padding: 1.5rem 1.5rem;
+        > .menu {
+            @include flex-model(row, center, flex-end, 1.5rem);
+            > a {
+                &.button {
+                    width: 150px;
+                    > button {
+                        width: 100%;
+                    }
+                }
+                &.cart {
+                    width: 30px;
+                    height: 30px;
+
+                    > svg {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                &:hover {
+                    > span {
+                        color: $SS5 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nav-mobile-group {
+    display: none;
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+    background-color: white;
+
+    @include tablet {
+        @include flex-model(column, flex-start, flex-start, 1rem);
+    }
+    > .navbar-mobile {
+        width: 100%;
+        @include flex-model(row, center, flex-start, 1rem);
+
+        > a {
+            width: 33%;
+            @include flex-model(row, center, center, 0);
+
+            &.cart {
+                @include flex-model(row, center, flex-end, 0);
+                > svg {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+        > .navbar-menu {
+            @include flex-model-nogap(row, center, flex-start);
+            width: 33%;
+            > .icon {
+                margin-right: 0.5rem;
+                @include flex-model-nogap(row, center, center);
+                svg {
+                    fill: black;
+                    transform: scale(0.6);
+                }
+            }
+        }
+    }
+    .nav-content {
+        width: 80%;
+        background-color: $White;
+        position: absolute;
+        height: 100vh;
+        left: -100%;
+        top: 0;
+        color: black !important;
+        box-shadow: $ShadowM;
+        overflow: hidden;
+        z-index: 2;
+        padding: 1rem;
+        @include flex-model(column, flex-start, flex-start, 1.5rem);
+        transition: left 0.3s ease;
+        &.open {
+            left: 0;
+        }
+        .logo-wrapper {
+            width: 100%;
+            @include flex-model-nogap(row, center, center);
+            > svg {
+                fill: black;
+                width: 30px;
+                height: 30px;
+                background-color: #f4f4f4;
+                border-radius: 50%;
+                padding: 0.2rem;
+                align-self: flex-start;
+            }
+            > a {
+                width: 100%;
+                @include flex-model-nogap(row, center, center);
+                img {
+                    width: 70px;
+                    height: 70px;
+                    object-fit: contain;
+                    background-blend-mode: screen;
+                }
+            }
+        }
+    }
+}

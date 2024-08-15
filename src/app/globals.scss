@@ -47,4 +47,8 @@ input,
 textarea {
     padding-left: 2.3rem;
     font-size: 1rem;
+    font-family: '__Poppins_e04c4e', '__Poppins_Fallback_e04c4e';
+    &::placeholder {
+        font-family: '__Poppins_e04c4e', '__Poppins_Fallback_e04c4e';
+    }
 }

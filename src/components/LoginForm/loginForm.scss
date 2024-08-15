@@ -1,0 +1,45 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+
+#login-form {
+    width: calc(40% - 1rem);
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: $ShadowM;
+    @include flex-model(column, flex-start, flex-start, 1rem);
+    @include mobile {
+        width: 100%;
+    }
+    > div {
+        width: 100%;
+        &.header {
+            @include flex-model(column, center, center, 0.5rem);
+            > h3,
+            p {
+                text-align: center;
+            }
+            > h3 {
+                display: inline-block;
+                > span {
+                    color: $SS5;
+                    margin-left: 1px;
+                }
+            }
+        }
+    }
+    > button {
+        width: 100%;
+    }
+    > a {
+        text-align: center;
+        align-self: center;
+        &:hover {
+            span {
+                color: $SS8 !important;
+            }
+        }
+    }
+}

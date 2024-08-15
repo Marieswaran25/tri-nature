@@ -1,5 +1,6 @@
 import './globals.scss';
 
+import { NavBar } from '@components/Navbar';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 

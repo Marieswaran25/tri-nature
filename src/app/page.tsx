@@ -1,9 +1,9 @@
-import Typography from '@library/Typography';
+import { NavBar } from '@components/Navbar';
 
 export default function Home() {
     return (
-        <main>
-            <Typography type={'p1'} weight={'semibold'} text={'TriNature'} />
-        </main>
+        <>
+            <NavBar />
+        </>
     );
 }

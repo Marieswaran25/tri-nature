@@ -1,0 +1,33 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = "postgres://default:7OgDapFqt0vI@ep-shy-scene-31828553-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+    directUrl = "postgres://default:7OgDapFqt0vI@ep-shy-scene-31828553.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+}
+
+model User {
+    id        String  @id @default(uuid()) @db.VarChar(255)
+    username  String  @db.VarChar(255)
+    email     String  @unique @db.VarChar(255)
+    password  String? @db.VarChar(255)
+    googleId  String?
+    avatarUrl String? @db.VarChar(255)
+
+    createdAt DateTime @default(now()) @db.Timestamp(6)
+
+    sessions Session[]
+
+    @@map("users")
+}
+
+model Session {
+    id        String   @id @default(cuid()) @db.VarChar(255)
+    userId    String   @db.VarChar(255)
+    expiresAt DateTime @db.Timestamp(6)
+    User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
