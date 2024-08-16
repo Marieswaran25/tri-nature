@@ -1,0 +1,15 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+
+.product-list {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+    padding: 1rem;
+    @include tablet {
+        flex-direction: column;
+    }
+}
