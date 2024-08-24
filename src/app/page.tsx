@@ -1,18 +1,27 @@
+'use server';
+
 import './home.scss';
 
-import Bottle from '@assets/images/bottle.png';
 import { NavBar } from '@components/Navbar';
 import { ProductCard } from '@components/ProductCard';
 import { View } from '@components/View';
+import { Product } from '@prisma/client';
+import { prismaInstance } from 'src/lib/prisma';
 
-export default function Home() {
+export default async function Home() {
+    let products: Product[] = [];
+    try {
+        products = await prismaInstance.product.findMany();
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+
     return (
         <>
             <NavBar />
-
             <View className="product-list">
-                {Array.from({ length: 4 }).map((_, i) => (
-                    <ProductCard key={i} productName={'Air Pods'} productDescription={'A best and clean quality air pods from boat.'} productImage={Bottle} productPrice={10} />
+                {products.map((p, i) => (
+                    <ProductCard key={i} productName={p.productName} productDescription={p.productDescription || ''} productImage={p.productUrl || ''} productPrice={p.cost} productId={p.id} />
                 ))}
             </View>
         </>

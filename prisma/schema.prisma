@@ -9,13 +9,12 @@ datasource db {
 }
 
 model User {
-    id        String  @id @default(uuid()) @db.VarChar(255)
-    username  String  @db.VarChar(255)
-    email     String  @unique @db.VarChar(255)
-    password  String? @db.VarChar(255)
+    id        String   @id @default(uuid()) @db.VarChar(255)
+    username  String   @db.VarChar(255)
+    email     String   @unique @db.VarChar(255)
+    password  String?  @db.VarChar(255)
     googleId  String?
-    avatarUrl String? @db.VarChar(255)
-
+    avatarUrl String?  @db.VarChar(255)
     createdAt DateTime @default(now()) @db.Timestamp(6)
 
     sessions Session[]
@@ -27,7 +26,44 @@ model Session {
     id        String   @id @default(cuid()) @db.VarChar(255)
     userId    String   @db.VarChar(255)
     expiresAt DateTime @db.Timestamp(6)
-    User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@map("sessions")
+}
+
+model Product {
+    id                 String   @id @default(uuid()) @db.VarChar(255)
+    productName        String   @db.VarChar(255)
+    productDescription String?  @db.VarChar(255)
+    productUrl         String?  @db.VarChar(255)
+    quantity           Int      @db.Integer
+    cost               Int      @db.Integer
+    currency           String   @db.VarChar(255)
+    isActive           Boolean  @default(true)
+    createdAt          DateTime @default(now()) @db.Timestamp(6)
+
+    @@map("products")
+}
+
+model Cart {
+    id        String   @id @default(uuid()) @db.VarChar(255)
+    isActive  Boolean  @default(true)
+    expiresAt DateTime @db.Timestamp(6)
+    createdAt DateTime @default(now()) @db.Timestamp(6)
+
+    cartLineItems CartLineItem[]
+
+    @@map("carts")
+}
+
+model CartLineItem {
+    id        String   @id @default(uuid()) @db.VarChar(255)
+    productId String   @db.VarChar(255)
+    quantity  Int
+    createdAt DateTime @default(now()) @db.Timestamp(6)
+    cartId    String
+
+    cart Cart @relation(fields: [cartId], references: [id])
+
+    @@map("cart_line_items")
 }

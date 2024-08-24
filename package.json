@@ -13,12 +13,14 @@
         "format:fix": "prettier --write \"{src,scripts,__tests__,.}/**/*.{ts,tsx,scss}\" \"**/*.js\" \"**/*.ts\" \"**/*.json\" \"README.md\" ",
         "prepare": "husky install",
         "prisma:generate": "npx prisma generate",
-        "prisma:studio": "npx prisma studio"
+        "prisma:studio": "npx prisma studio",
+        "prisma:db-push": "npx prisma db push"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.9.0",
         "@lucia-auth/adapter-prisma": "^4.0.1",
         "@prisma/client": "^5.18.0",
+        "axios": "^1.7.5",
         "bcrypt": "^5.1.1",
         "lucia": "^3.2.0",
         "moment": "^2.30.1",

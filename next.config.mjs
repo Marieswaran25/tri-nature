@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        unoptimized: true,
+        domains: ['t3.ftcdn.net', 'cdn.shopify.com/', 'cdn.sanity.io'],
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,
