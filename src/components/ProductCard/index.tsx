@@ -3,6 +3,7 @@ import './productCard.scss';
 import colors from '@theme/colors.module.scss';
 
 import React from 'react';
+import Tick from '@assets/images/tick.svg';
 import { Button } from '@components/Button';
 import { Counter } from '@components/Counter';
 import Typography from '@components/Typography';
@@ -21,11 +22,10 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescription, productImage, productPrice, productId }) => {
     const { count, increment, decrement, set } = useCounter(0);
     const [showCounter, setShowCounter] = React.useState(false);
-    const { addToCart } = useCart();
+    const { addToCart, loading, isSuccess } = useCart();
 
     const handleAddToCart = () => {
         addToCart({ productId: productId, quantity: count });
-        setShowCounter(false);
     };
 
     return (
@@ -49,14 +49,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDe
                         backgroundColor={colors.LightCeruleanBlue}
                         id="view-product-btn"
                         type="button"
+                        backgroundColorOnHover={colors.C9}
                     />{' '}
                     <Button
-                        label={<Typography type="p2" weight="semibold" text={'Add to Cart'} color="white" />}
+                        label={<Typography type="p2" weight="semibold" text={isSuccess ? 'Added to Cart' : 'Add to Cart'} color="white" />}
                         buttonType="primary"
                         backgroundColor={colors.SS5}
                         id="add-to-cart-btn"
                         type="button"
                         onClick={handleAddToCart}
+                        isLoading={loading}
+                        loadingColor="white"
+                        disabled={loading}
+                        leftIcon={isSuccess ? Tick : undefined}
+                        backgroundColorOnHover={colors.SS8}
                     />
                 </div>
             </div>

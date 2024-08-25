@@ -23,6 +23,17 @@
                 &.cart {
                     width: 30px;
                     height: 30px;
+                    position: relative;
+                    > small {
+                        position: absolute;
+                        right: -8px;
+                        top: -8px;
+                        background-color: red !important;
+                        border-radius: 50%;
+                        height: 20px;
+                        width: 20px;
+                        @include flex-model-nogap(row, center, center);
+                    }
 
                     > svg {
                         width: 100%;
@@ -59,6 +70,17 @@
 
             &.cart {
                 @include flex-model(row, center, flex-end, 0);
+                position: relative;
+                > small {
+                    position: absolute;
+                    right: -8px;
+                    top: -8px;
+                    background-color: red !important;
+                    border-radius: 50%;
+                    height: 20px;
+                    width: 20px;
+                    @include flex-model-nogap(row, center, center);
+                }
                 > svg {
                     width: 30px;
                     height: 30px;

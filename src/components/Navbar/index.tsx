@@ -1,3 +1,4 @@
+'use client';
 import './navbar.scss';
 import colors from '@theme/colors.module.scss';
 
@@ -6,6 +7,7 @@ import Cart from '@assets/images/cart.svg';
 import { Button } from '@components/Button';
 import Typography from '@components/Typography';
 import { View } from '@components/View';
+import { useCart } from '@hooks/use-cart';
 import Link from 'next/link';
 import { APP_NAME } from 'src/config';
 import { ROUTES } from 'src/routes';
@@ -13,6 +15,7 @@ import { ROUTES } from 'src/routes';
 import { NavbarMobile } from './navbarMobile';
 
 export const NavBar = () => {
+    const { cartItems } = useCart();
     return (
         <>
             <nav className="nav-bar">
@@ -29,6 +32,7 @@ export const NavBar = () => {
                         </Link>
                         <Link href={ROUTES.YOUR_CART} className="cart">
                             <Cart />
+                            <Typography type={'caption'} weight={'light'} text={`${cartItems.length || 0}`} color={'white'} as="small" />
                         </Link>
                         <Link href={ROUTES.LOGIN} className="button">
                             <Button label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />} buttonType="primary" backgroundColor={colors.SS5} id="login-btn" type="button" />
