@@ -12,7 +12,7 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({ message: 'Cart not found' }, { status: 404 });
         }
 
-        const existingCartItem = await prismaInstance.cartLineItem.findFirst({
+        const existingCartItem: CartLineItem | null = await prismaInstance.cartLineItem.findFirst({
             where: {
                 cartId,
                 productId,
@@ -20,13 +20,22 @@ export async function PATCH(request: NextRequest) {
         });
 
         let upsert;
-        if (existingCartItem) {
+        if (existingCartItem && quantity > 0) {
             upsert = await prismaInstance.cartLineItem.update({
                 where: {
                     id: existingCartItem.id,
                 },
                 data: {
                     quantity,
+                },
+                include: {
+                    product: true,
+                },
+            });
+        } else if (existingCartItem && quantity === 0) {
+            upsert = await prismaInstance.cartLineItem.delete({
+                where: {
+                    id: existingCartItem.id,
                 },
                 include: {
                     product: true,

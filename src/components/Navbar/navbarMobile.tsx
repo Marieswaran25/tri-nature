@@ -18,7 +18,7 @@ import { APP_NAME } from 'src/config';
 import { ROUTES } from 'src/routes';
 export const NavbarMobile: React.FC = () => {
     const [toggle, setToggle, ref] = useCustomSelect(false);
-    const { cartItems } = useCart();
+    const { cart } = useCart();
     return (
         <>
             <div className="nav-mobile-group">
@@ -33,7 +33,7 @@ export const NavbarMobile: React.FC = () => {
                     </Link>
                     <Link href={ROUTES.YOUR_CART} className="cart">
                         <Cart />
-                        <Typography type={'caption'} weight={'light'} text={`${cartItems.length || 0}`} color={'white'} as="small" />
+                        <Typography type={'caption'} weight={'light'} text={`${cart?.cartLineItems.length || 0}`} color={'white'} as="small" />
                     </Link>
                 </nav>
                 <div className={`nav-content ${toggle ? 'open' : ''}`} ref={ref}>

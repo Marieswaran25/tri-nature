@@ -15,7 +15,7 @@ import { ROUTES } from 'src/routes';
 import { NavbarMobile } from './navbarMobile';
 
 export const NavBar = () => {
-    const { cartItems } = useCart();
+    const { cart } = useCart();
     return (
         <>
             <nav className="nav-bar">
@@ -32,7 +32,7 @@ export const NavBar = () => {
                         </Link>
                         <Link href={ROUTES.YOUR_CART} className="cart">
                             <Cart />
-                            <Typography type={'caption'} weight={'light'} text={`${cartItems.length || 0}`} color={'white'} as="small" />
+                            <Typography type={'caption'} weight={'light'} text={`${cart?.cartLineItems.length || 0}`} color={'white'} as="small" />
                         </Link>
                         <Link href={ROUTES.LOGIN} className="button">
                             <Button label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />} buttonType="primary" backgroundColor={colors.SS5} id="login-btn" type="button" />

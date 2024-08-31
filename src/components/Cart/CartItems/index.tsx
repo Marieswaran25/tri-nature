@@ -1,15 +1,27 @@
 'use client';
 import './cartItem.scss';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Counter } from '@components/Counter';
 import Typography from '@components/Typography';
+import { useCart } from '@hooks/use-cart';
 import { useCounter } from '@hooks/use-counter';
+import { useDebounce } from '@hooks/use-debounce';
 import Image from 'next/image';
 import { CartItems } from 'src/app/api/cart/items/route';
 
 export const CartItem: React.FC<{ data: CartItems }> = ({ data }) => {
     const counter = useCounter(data?.quantity || 1);
+    const { addToCart } = useCart();
+
+    const debouncedQuantity = useDebounce(counter.count, 800);
+
+    useEffect(() => {
+        if (debouncedQuantity === counter.count && data.quantity !== debouncedQuantity) {
+            addToCart({ productId: data.product.id, quantity: debouncedQuantity });
+        }
+    }, [debouncedQuantity, addToCart, counter.count, data.quantity, data.product.id]);
+
     return (
         <div className="cart-item">
             <div className="product-image-wrapper">
