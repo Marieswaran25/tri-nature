@@ -3,7 +3,8 @@ import './productCard.scss';
 import colors from '@theme/colors.module.scss';
 
 import React from 'react';
-import Tick from '@assets/images/tick.svg';
+import AddToCart from '@assets/images/addCart.svg';
+import EmptyCart from '@assets/images/emptyCart.svg';
 import { Button } from '@components/Button';
 import { Counter } from '@components/Counter';
 import Typography from '@components/Typography';
@@ -20,12 +21,16 @@ interface ProductCardProps {
     productId: string;
 }
 export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescription, productImage, productPrice, productId }) => {
-    const { count, increment, decrement, set } = useCounter(0);
+    const [initialCount, setInitialCount] = React.useState(0);
+    const { count, increment, decrement, set } = useCounter(initialCount);
     const [showCounter, setShowCounter] = React.useState(false);
     const { addToCart, loading, isSuccess } = useCart();
 
     const handleAddToCart = () => {
-        addToCart({ productId: productId, quantity: count });
+        if (count > 0 && initialCount !== count) {
+            addToCart({ productId: productId, quantity: count });
+            setInitialCount(count);
+        }
     };
 
     return (
@@ -44,15 +49,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDe
                 <Typography type="p3" text={productDescription} weight="light" as="p" color="black" />
                 <div className="button-wrapper">
                     <Button
-                        label={<Typography type="p2" weight="semibold" text={'View Product'} color="white" />}
-                        buttonType="primary"
-                        backgroundColor={colors.LightCeruleanBlue}
-                        id="view-product-btn"
-                        type="button"
-                        backgroundColorOnHover={colors.C9}
-                    />{' '}
-                    <Button
-                        label={<Typography type="p2" weight="semibold" text={isSuccess ? 'Added to Cart' : 'Add to Cart'} color="white" />}
+                        label={<Typography type="p2" text={isSuccess ? 'Added to cart' : 'Add to cart'} weight="regular" as="p" color="white" />}
                         buttonType="primary"
                         backgroundColor={colors.SS5}
                         id="add-to-cart-btn"
@@ -61,7 +58,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDe
                         isLoading={loading}
                         loadingColor="white"
                         disabled={loading}
-                        leftIcon={isSuccess ? Tick : undefined}
+                        rightIcon={isSuccess ? AddToCart : EmptyCart}
                         backgroundColorOnHover={colors.SS8}
                     />
                 </div>

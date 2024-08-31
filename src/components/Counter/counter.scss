@@ -4,11 +4,21 @@
 @import '@theme/shadow.module.scss';
 
 .counter {
-    @include flex-model(column, flex-start, flex-start, 0);
-    border-radius: 10px;
-    border: 1px solid $SilveringGray;
+    &.horizontal {
+        @include flex-model(row, center, center, 0.5rem);
+        > svg {
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+        }
+    }
+    &.vertical {
+        @include flex-model(column, flex-start, flex-start, 0);
+        border-radius: 10px;
+        background-color: $B2;
+        border: 1px solid $SilveringGray;
+    }
 
-    background-color: $B2;
     > button {
         padding: 0.2rem;
         @include flex-model(row, center, center, 0);

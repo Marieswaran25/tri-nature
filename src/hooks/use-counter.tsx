@@ -24,8 +24,8 @@ export function useCounter(min = 0, max?: number): UseCounterReturn {
 
     const decrement = () => {
         setCount(prev => {
-            if (prev <= min) {
-                return min;
+            if (prev <= 0) {
+                return 0;
             }
             return prev - 1;
         });

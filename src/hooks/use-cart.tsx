@@ -49,7 +49,7 @@ export const useCartInstance = (): UseCartReturn => {
     const addToCart = useCallback(async ({ productId, quantity }: { productId: string; quantity: number }) => {
         try {
             setLoading(true);
-            const response: CartLineItem & { product: Product } = (await axios.post('/api/cart/items', { productId, quantity })).data;
+            const response: CartLineItem & { product: Product } = (await axios.patch('/api/cart/items', { productId, quantity })).data;
             setLoading(false);
             setIsSuccess(true);
             setCartItems(prev => {

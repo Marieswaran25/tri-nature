@@ -1,0 +1,22 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+
+.cart {
+    @include flex-model(row, center, space-between, 0.5rem);
+    width: 100%;
+    @include tablet {
+        @include flex-model(column, flex-start, flex-start, 1rem);
+    }
+    > .cart-scope {
+        width: 60%;
+        @include flex-model(column, flex-start, flex-start, 1rem);
+        @include tablet {
+            width: 100%;
+        }
+        > .current-cart-items {
+            width: 100%;
+            @include flex-model(column, center, flex-start, 1rem);
+        }
+    }
+}

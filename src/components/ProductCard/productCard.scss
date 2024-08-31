@@ -75,15 +75,16 @@
         }
         .button-wrapper {
             width: 100%;
-            @include flex-model(row, center, space-between, 0.5rem);
+            @include flex-model(row, center, flex-end, 0.5rem);
             @include mobile {
                 @include flex-model(column, flex-start, flex-start, 1rem);
             }
             > button {
-                flex: 1;
+                width: 100%;
                 > svg {
-                    width: 20px;
-                    height: 20px;
+                    width: 25px;
+                    height: 25px;
+                    margin-left: 0.5rem;
                 }
                 > span {
                     font-size: 0.9rem;
