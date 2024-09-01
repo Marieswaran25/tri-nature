@@ -2,7 +2,7 @@
 
 import colors from '@theme/colors.module.scss';
 
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import Cart from '@assets/images/cart.svg';
 import Close from '@assets/images/close.svg';
 import Logout from '@assets/images/logout.svg';
@@ -19,6 +19,11 @@ import { ROUTES } from 'src/routes';
 export const NavbarMobile: React.FC = () => {
     const [toggle, setToggle, ref] = useCustomSelect(false);
     const { cart } = useCart();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setToggle(false);
+    }, [pathname, setToggle]);
     return (
         <>
             <div className="nav-mobile-group">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { singletonHook } from 'react-singleton-hook';
 import { CartLineItem, Product } from '@prisma/client';
 import axios from 'axios';
@@ -10,6 +10,12 @@ export interface UseCartReturn {
     cart: CartResponse | null;
     addToCart: ({ productId, quantity }: { productId: string; quantity: number }) => Promise<void>;
     cartLoading: boolean;
+    summary: {
+        total: number;
+        items: {
+            [key: string]: string;
+        };
+    };
 }
 
 export const useCartInstance = (): UseCartReturn => {
@@ -55,11 +61,26 @@ export const useCartInstance = (): UseCartReturn => {
         }
     }, []);
 
+    const summary = useMemo(() => {
+        if (cart) {
+            return {
+                total: cart.cartLineItems.reduce((acc, item) => acc + item.quantity * item.product.cost, 0) || 0,
+                items: cart.cartLineItems.reduce((acc: { [k: string]: string }, item) => ({ ...acc, [item.product.productName]: `${item.quantity} X ${item.product.cost}` }), {}),
+            };
+        } else {
+            return {
+                total: 0,
+                items: {},
+            };
+        }
+    }, [cart]);
+
     return {
         cart,
         addToCart,
         cartLoading,
+        summary,
     };
 };
 
-export const useCart = singletonHook({ cart: null, addToCart: async () => {}, cartLoading: false }, useCartInstance);
+export const useCart = singletonHook({ cart: null, addToCart: async () => {}, cartLoading: false, summary: { total: 0, items: {} } }, useCartInstance);

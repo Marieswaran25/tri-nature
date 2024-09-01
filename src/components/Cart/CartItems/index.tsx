@@ -33,7 +33,7 @@ export const CartItem: React.FC<{ data: CartItems }> = ({ data }) => {
                 <div className="sub-wrapper">
                     <h6 className="product-price typography p2 semibold">
                         &#x20B9;{data.product.cost}
-                        <span>/kg</span>
+                        <span>/{data.product.scale || 'Kg'}</span>
                     </h6>{' '}
                     <Counter {...counter} position={'horizontal'} className="cart-counter" />
                 </div>

@@ -3,7 +3,7 @@
 @import '@theme/common.module.scss';
 
 .cart {
-    @include flex-model(row, center, space-between, 0.5rem);
+    @include flex-model(row, flex-start, space-between, 1rem);
     width: 100%;
     @include tablet {
         @include flex-model(column, flex-start, flex-start, 1rem);
@@ -17,6 +17,12 @@
         > .current-cart-items {
             width: 100%;
             @include flex-model(column, center, flex-start, 1rem);
+        }
+    }
+    > .summary-scope {
+        width: 37%;
+        @include tablet {
+            width: 100%;
         }
     }
 }

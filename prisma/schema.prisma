@@ -37,6 +37,7 @@ model Product {
     productDescription String?  @db.VarChar(255)
     productUrl         String?  @db.VarChar(255)
     quantity           Int      @db.Integer
+    scale              String?  @db.VarChar(255)
     cost               Int      @db.Integer
     currency           String   @db.VarChar(255)
     isActive           Boolean  @default(true)

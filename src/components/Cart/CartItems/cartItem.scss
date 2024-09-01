@@ -55,6 +55,14 @@
     width: 100%;
     > .product-image-wrapper {
         @include flex-model-nogap(row, center, flex-start);
+        > .product-image-loader {
+            > div {
+                @include medium-mobile {
+                    width: 80px !important;
+                    height: 80px !important;
+                }
+            }
+        }
     }
     > .product-info {
         width: 100%;

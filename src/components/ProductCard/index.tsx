@@ -19,9 +19,10 @@ interface ProductCardProps {
     productImage: StaticImageData | string;
     productPrice: number;
     productId: string;
+    scale?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescription, productImage, productPrice, productId }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ scale, productName, productDescription, productImage, productPrice, productId }) => {
     const [initialCount, setInitialCount] = useState(0);
     const { count, increment, decrement, set } = useCounter(initialCount);
     const [showCounter, setShowCounter] = useState(false);
@@ -56,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDe
                     <Typography type="p1" text={productName} weight="semibold" as="h5" color="black" />
                     <h6 className="product-price typography p1 semibold">
                         &#x20B9;{productPrice}
-                        <span>/kg</span>
+                        <span>/{scale || 'Kg'}</span>
                     </h6>
                 </div>
                 <Typography type="p3" text={productDescription} weight="light" as="p" color="black" />
