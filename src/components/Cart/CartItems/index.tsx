@@ -29,7 +29,7 @@ export const CartItem: React.FC<{ data: CartItems }> = ({ data }) => {
             </div>
             <div className="product-info">
                 <Typography type={'p2'} weight={'semibold'} text={data.product.productName} as="strong" />
-                {data.product.productDescription && <Typography type={'p3'} weight={'light'} text={data.product.productDescription} as="p" color="gray" />}
+                {data.product.productDescription && <Typography type={'caption'} weight={'light'} text={data.product.productDescription} as="p" color="gray" />}
                 <div className="sub-wrapper">
                     <h6 className="product-price typography p2 semibold">
                         &#x20B9;{data.product.cost}

@@ -3,6 +3,7 @@
 @import '@theme/common.module.scss';
 
 .cart-item {
+    width: 100%;
     @include flex-model(row, center, space-between, 1rem);
     background-color: white;
     border-radius: 10px;
@@ -15,8 +16,9 @@
         overflow: hidden;
         background-color: #f7f6f4;
         @include medium-mobile {
-            width: 105px;
-            height: 80px;
+            width: 100px;
+            height: 75px;
+            aspect-ratio: 3/4;
         }
         > img {
             width: 100%;

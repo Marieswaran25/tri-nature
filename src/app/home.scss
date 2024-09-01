@@ -9,13 +9,14 @@
     gap: 2rem;
     width: 100%;
     padding: 1rem;
+    margin-top: 90px !important;
     > div {
         width: 372px;
         @include mobile {
             width: 100%;
         }
     }
-    @include tablet {
+    @include mobile {
         flex-direction: column;
     }
 }

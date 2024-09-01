@@ -6,20 +6,14 @@ import { CartLineItem, Product } from '@prisma/client';
 import axios from 'axios';
 import { CartResponse } from 'src/app/api/cart/route';
 
-import { useDebounce } from './use-debounce';
-
 export interface UseCartReturn {
     cart: CartResponse | null;
-    addToCart: ({ productId, quantity }: { productId: string; quantity: number }) => void;
-    loading: boolean;
-    isSuccess: boolean;
+    addToCart: ({ productId, quantity }: { productId: string; quantity: number }) => Promise<void>;
     cartLoading: boolean;
 }
 
 export const useCartInstance = (): UseCartReturn => {
     const [cart, setCart] = useState<CartResponse | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
     const [cartLoading, setCartLoading] = useState(false);
 
     useEffect(() => {
@@ -37,10 +31,7 @@ export const useCartInstance = (): UseCartReturn => {
 
     const addToCart = useCallback(async ({ productId, quantity }: { productId: string; quantity: number }) => {
         try {
-            setLoading(true);
             const response: CartLineItem & { product: Product } = (await axios.patch('/api/cart/items', { productId, quantity })).data;
-            setLoading(false);
-            setIsSuccess(true);
             setCart(prev => {
                 if (prev) {
                     const itemExists = prev.cartLineItems.some(item => item.id === response.id);
@@ -61,20 +52,14 @@ export const useCartInstance = (): UseCartReturn => {
             });
         } catch (error) {
             setCart(null);
-        } finally {
-            setTimeout(() => {
-                setIsSuccess(false);
-            }, 1000);
         }
     }, []);
 
     return {
         cart,
         addToCart,
-        loading,
-        isSuccess,
         cartLoading,
     };
 };
 
-export const useCart = singletonHook({ cart: null, addToCart: () => {}, loading: false, isSuccess: false, cartLoading: false }, useCartInstance);
+export const useCart = singletonHook({ cart: null, addToCart: async () => {}, cartLoading: false }, useCartInstance);

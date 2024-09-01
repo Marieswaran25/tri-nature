@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         unoptimized: true,
-        domains: ['t3.ftcdn.net', 'cdn.shopify.com/', 'cdn.sanity.io'],
+        domains: ['t3.ftcdn.net', 'cdn.shopify.com/', 'cdn.sanity.io', 'pngimg.com', 'img.thecdn.in'],
     },
     webpack(config) {
         config.module.rules.push({

@@ -5,6 +5,9 @@
 .nav-bar {
     background-color: white;
     width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
     @include tablet {
         display: none;
     }
@@ -53,9 +56,11 @@
 .nav-mobile-group {
     display: none;
     width: 100%;
-    position: relative;
+    position: fixed;
+    top: 0;
     padding: 1rem;
     background-color: white;
+    z-index: 999;
 
     @include tablet {
         @include flex-model(column, flex-start, flex-start, 1rem);

@@ -2,7 +2,7 @@
 import './productCard.scss';
 import colors from '@theme/colors.module.scss';
 
-import React from 'react';
+import React, { useState } from 'react';
 import AddToCart from '@assets/images/addCart.svg';
 import EmptyCart from '@assets/images/emptyCart.svg';
 import { Button } from '@components/Button';
@@ -20,16 +20,29 @@ interface ProductCardProps {
     productPrice: number;
     productId: string;
 }
-export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescription, productImage, productPrice, productId }) => {
-    const [initialCount, setInitialCount] = React.useState(0);
-    const { count, increment, decrement, set } = useCounter(initialCount);
-    const [showCounter, setShowCounter] = React.useState(false);
-    const { addToCart, loading, isSuccess } = useCart();
 
-    const handleAddToCart = () => {
-        if (count > 0 && initialCount !== count) {
-            addToCart({ productId: productId, quantity: count });
-            setInitialCount(count);
+export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDescription, productImage, productPrice, productId }) => {
+    const [initialCount, setInitialCount] = useState(0);
+    const { count, increment, decrement, set } = useCounter(initialCount);
+    const [showCounter, setShowCounter] = useState(false);
+    const { addToCart } = useCart();
+
+    const [loadingForThisProduct, setLoadingForThisProduct] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            if (count > 0 && initialCount !== count) {
+                setLoadingForThisProduct(true);
+                await addToCart({ productId: productId, quantity: count });
+                setInitialCount(count);
+                setLoadingForThisProduct(false);
+                setIsSuccess(true);
+            }
+        } catch {
+            setIsSuccess(false);
+        } finally {
+            setTimeout(() => setIsSuccess(false), 1000);
         }
     };
 
@@ -55,9 +68,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ productName, productDe
                         id="add-to-cart-btn"
                         type="button"
                         onClick={handleAddToCart}
-                        isLoading={loading}
+                        isLoading={loadingForThisProduct}
                         loadingColor="white"
-                        disabled={loading}
+                        disabled={loadingForThisProduct}
                         rightIcon={isSuccess ? AddToCart : EmptyCart}
                         backgroundColorOnHover={colors.SS8}
                     />

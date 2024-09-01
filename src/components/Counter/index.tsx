@@ -32,6 +32,7 @@ export const Counter: React.FC<CounterProps> = ({ count, increment, decrement, s
                     }}
                     maxLength={2}
                     minLength={1}
+                    readOnly={position == 'horizontal' ? true : false}
                 />
             </div>
             {position === 'vertical' && (
