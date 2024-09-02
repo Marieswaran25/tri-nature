@@ -34,7 +34,7 @@ export const Summary = ({ isLoading }: { isLoading: boolean }) => {
                     </div>
                     <div className="details">
                         <Typography type={'p3'} text={'Shipping'} as="p" color="black" weight={'light'} />
-                        <Typography type={'p3'} text={`${summary?.total > 999 ? 'FREE' : '₹40'}`} as="p" color="black" weight={'regular'} />
+                        <Typography type={'p3'} text={`${summary?.total >= 999 ? 'FREE' : '₹40'}`} as="p" color="black" weight={'regular'} />
                     </div>
                     <div className="details">
                         <Typography type={'p3'} text={'Arrives in'} as="p" color="black" weight={'light'} />
@@ -42,7 +42,7 @@ export const Summary = ({ isLoading }: { isLoading: boolean }) => {
                     </div>
                     <div className="details">
                         <Typography type={'p2'} text={'Total'} as="p" color="black" weight={'semibold'} />
-                        <Typography type={'p2'} text={`₹${(summary.total += summary.total > 999 ? 40 : 0)}`} as="p" color="black" weight={'semibold'} />
+                        <Typography type={'p2'} text={`₹${summary?.total + (summary?.total >= 999 ? 0 : 40)}`} as="p" color="black" weight={'semibold'} />
                     </div>
                 </>
             )}
