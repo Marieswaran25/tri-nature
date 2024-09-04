@@ -32,17 +32,19 @@ export const Summary = ({ isLoading }: { isLoading: boolean }) => {
                         <Typography type={'p3'} text={'Sub-total'} as="p" color="black" weight={'light'} />
                         <Typography type={'p3'} text={`${summary?.total}`} as="p" color="black" weight={'regular'} />
                     </div>
-                    <div className="details">
-                        <Typography type={'p3'} text={'Shipping'} as="p" color="black" weight={'light'} />
-                        <Typography type={'p3'} text={`${summary?.total >= 999 ? 'FREE' : '₹40'}`} as="p" color="black" weight={'regular'} />
-                    </div>
+                    {summary?.total !== 0 && (
+                        <div className="details">
+                            <Typography type={'p3'} text={'Shipping'} as="p" color="black" weight={'light'} />
+                            <Typography type={'p3'} text={`${summary?.total >= 999 ? 'FREE' : '₹40'}`} as="p" color="black" weight={'regular'} />
+                        </div>
+                    )}
                     <div className="details">
                         <Typography type={'p3'} text={'Arrives in'} as="p" color="black" weight={'light'} />
                         <Typography type={'p3'} text={`4-5 business days`} as="p" color="black" weight={'regular'} />
                     </div>
                     <div className="details">
                         <Typography type={'p2'} text={'Total'} as="p" color="black" weight={'semibold'} />
-                        <Typography type={'p2'} text={`₹${summary?.total + (summary?.total >= 999 ? 0 : 40)}`} as="p" color="black" weight={'semibold'} />
+                        <Typography type={'p2'} text={summary?.total === 0 ? '₹0' : `₹${summary?.total + (summary?.total >= 999 ? 0 : 40)}`} as="p" color="black" weight={'semibold'} />
                     </div>
                 </>
             )}
