@@ -35,11 +35,6 @@
                 @include tablet {
                     width: 100%;
                 }
-                > form {
-                    &.active {
-                        margin-top: 1rem;
-                    }
-                }
                 > .icon-wrapper {
                     width: 100%;
                     @include flex-model(row, center, flex-start, 10px);
