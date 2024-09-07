@@ -2,7 +2,7 @@
 import './billing.scss';
 import colors from '@theme/colors.module.scss';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/Button';
 import CustomInput from '@components/CustomInput';
@@ -15,11 +15,15 @@ import { billingSchema } from 'src/lib/schema';
 export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
     const {
         register,
-        formState: { errors, dirtyFields, isDirty },
+        formState: { errors, dirtyFields },
         handleSubmit,
     } = useForm({
         resolver: yupResolver(billingSchema),
     });
+    const [isDirty, setDirty] = useState(false);
+    const handleFormChange = () => {
+        setDirty(true);
+    };
 
     const submit = handleSubmit(async data => {
         console.log(data);
@@ -41,7 +45,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
     }, [isDirty]);
 
     return (
-        <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit}>
+        <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit} onChange={handleFormChange}>
             <div className="group">
                 <CustomInput
                     label={'First name'}
