@@ -5,4 +5,5 @@ export enum ROUTES {
     YOUR_CART = '/your-cart',
     OUR_PRODUCTS = '/our-products',
     ABOUT_US = '/about-us',
+    CHECKOUT = '/checkout',
 }

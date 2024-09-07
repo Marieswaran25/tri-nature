@@ -6,8 +6,11 @@ import { Button } from '@components/Button';
 import { FallbackLine } from '@components/FallbackLine';
 import Typography from '@components/Typography';
 import { useCart } from '@hooks/use-cart';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from 'src/routes';
 export const Summary = ({ isLoading }: { isLoading: boolean }) => {
     const { summary } = useCart();
+    const router = useRouter();
     return (
         <div className="summary">
             <Typography type={'p1'} text={'Summary'} as="p" color="black" weight={'semibold'} />
@@ -57,6 +60,7 @@ export const Summary = ({ isLoading }: { isLoading: boolean }) => {
                 loadingColor="white"
                 backgroundColorOnHover={colors.C9}
                 disable={summary.total <= 0 || isLoading}
+                onClick={() => router.push(ROUTES.CHECKOUT)}
             />
         </div>
     );

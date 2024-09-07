@@ -1,0 +1,29 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+
+.loader-wrapper {
+    width: 100%;
+    @include flex-model(column, center, center, 1rem);
+
+    > .loader {
+        padding: 1rem;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border-top-right-radius: 50%;
+        border-bottom-left-radius: 50%;
+        animation: spin 1s infinite;
+        @include mobile {
+            width: 60px;
+            height: 60px;
+        }
+    }
+}
+
+@keyframes spin {
+    100% {
+        rotate: 360deg;
+    }
+}
