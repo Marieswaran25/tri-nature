@@ -2,7 +2,7 @@
 import './billing.scss';
 import colors from '@theme/colors.module.scss';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/Button';
 import CustomInput from '@components/CustomInput';
@@ -12,13 +12,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Districts } from '@utils/districts';
 import { Referrals } from '@utils/referrals';
 import { billingSchema } from 'src/lib/schema';
-export const Billing = ({ isActive, isSuccess, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
+export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
     const {
         register,
-        reset,
-        formState: { errors, dirtyFields },
+        formState: { errors, dirtyFields, isDirty },
         handleSubmit,
-        watch,
     } = useForm({
         resolver: yupResolver(billingSchema),
     });
@@ -27,6 +25,21 @@ export const Billing = ({ isActive, isSuccess, handleSuccess }: { isActive: bool
         console.log(data);
         handleSuccess();
     });
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isDirty) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDirty]);
+
     return (
         <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit}>
             <div className="group">
