@@ -12,6 +12,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Districts } from '@utils/districts';
 import { Referrals } from '@utils/referrals';
 import { billingSchema } from 'src/lib/schema';
+import { usePathname } from 'next/navigation';
+import { ROUTES } from 'src/routes';
 export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
     const {
         register,
@@ -21,6 +23,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
         resolver: yupResolver(billingSchema),
     });
     const [isDirty, setDirty] = useState(false);
+    const pathname = usePathname();
     const handleFormChange = () => {
         setDirty(true);
     };
@@ -31,7 +34,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
     });
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (isDirty) {
+            if (isDirty && pathname !== `/${ROUTES.CHECKOUT}`) {
                 e.preventDefault();
                 e.returnValue = '';
             }
@@ -42,7 +45,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
-    }, [isDirty]);
+    }, [isDirty, pathname]);
 
     return (
         <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit} onChange={handleFormChange}>
