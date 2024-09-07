@@ -5,7 +5,10 @@
 .checkout {
     width: 100%;
     min-height: 80vh;
-    @include flex-model-nogap(row, center, center);
+    @include flex-model-nogap(row, flex-start, center);
+    > .loader-wrapper {
+        align-self: center;
+    }
     > div {
         &.checkout-info {
             width: 100%;
