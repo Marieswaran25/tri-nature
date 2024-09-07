@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 export default async function CheckoutPage() {
     return (
-        <View className="checkout-page" as="main">
+        <View className="checkout-page" as="main" style={{ marginTop: '90px' }}>
             <Checkout />
         </View>
     );

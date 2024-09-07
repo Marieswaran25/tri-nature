@@ -1,0 +1,41 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+
+.billing-form {
+    width: 100%;
+    @include flex-model(column, flex-start, flex-start, 1rem);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    &.active {
+        max-height: 9999px;
+        transition: max-height 0.5s ease-in-out;
+    }
+    > button {
+        width: 250px;
+        @include tablet {
+            width: 100%;
+        }
+    }
+    > .group {
+        width: 100%;
+        @include flex-model(row, flex-start, space-between, 1rem);
+        @include tablet {
+            @include flex-model(column, flex-start, flex-start, 1rem);
+        }
+        > div {
+            flex: 1;
+            @include tablet {
+                width: 100%;
+            }
+            > div {
+                select,
+                input {
+                    border-radius: 10px;
+                }
+            }
+        }
+    }
+}

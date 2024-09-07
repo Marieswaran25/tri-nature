@@ -1,0 +1,9 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+@import '@theme/shadow.module.scss';
+
+.order-summary {
+    width: 100%;
+    @include flex-model(column, flex-start, flex-start, 1rem);
+}

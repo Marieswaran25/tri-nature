@@ -4,17 +4,52 @@
 
 .checkout {
     width: 100%;
-    min-height: 75vh;
-    @include flex-model(row, center, space-between, 1rem);
+    min-height: 80vh;
+    @include flex-model-nogap(row, center, center);
     > div {
-        flex: 1;
         &.checkout-info {
-            > .checkout-form-wrapper,
-            .order-summary-wrapper {
-                width: 100%;
+            width: 100%;
+            @include flex-model(row, flex-start, space-between, 1rem);
+            @include tablet {
+                @include flex-model(column, flex-start, flex-start, 1rem);
+            }
+            > .order-summary-wrapper {
+                width: 35%;
                 border-radius: 10px;
                 padding: 1rem;
+                background-color: white;
                 @include flex-model(column, flex-start, flex-start, 1rem);
+                @include tablet {
+                    width: 100%;
+                }
+            }
+            > .checkout-form-wrapper {
+                width: 60%;
+                border-radius: 10px;
+                padding: 1rem;
+                background-color: white;
+                @include flex-model(column, flex-start, flex-start, 0);
+                @include tablet {
+                    width: 100%;
+                }
+                > form {
+                    &.active {
+                        margin-top: 1rem;
+                    }
+                }
+                > .icon-wrapper {
+                    width: 100%;
+                    @include flex-model(row, center, flex-start, 10px);
+
+                    > strong {
+                        padding: 0.3rem;
+                        cursor: pointer;
+                    }
+                    > svg {
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
             }
         }
     }
