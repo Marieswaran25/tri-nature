@@ -19,6 +19,9 @@
             width: 100%;
         }
     }
+    > h3 {
+        padding-top: 0.5rem;
+    }
     > .group {
         width: 100%;
         @include flex-model(row, flex-start, space-between, 1rem);

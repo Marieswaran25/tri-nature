@@ -28,24 +28,31 @@
             }
             > .checkout-form-wrapper {
                 width: 60%;
-                border-radius: 10px;
-                padding: 1rem;
-                background-color: white;
-                @include flex-model(column, flex-start, flex-start, 0);
+                @include flex-model(column, flex-start, flex-start, 1rem);
                 @include tablet {
                     width: 100%;
                 }
-                > .icon-wrapper {
+                .checkout-items {
                     width: 100%;
-                    @include flex-model(row, center, flex-start, 10px);
-
-                    > strong {
-                        padding: 0.3rem;
-                        cursor: pointer;
+                    border-radius: 10px;
+                    padding: 1rem;
+                    background-color: white;
+                    @include flex-model(column, flex-start, flex-start, 0);
+                    @include tablet {
+                        width: 100%;
                     }
-                    > svg {
-                        width: 25px;
-                        height: 25px;
+                    > .icon-wrapper {
+                        width: 100%;
+                        @include flex-model(row, center, flex-start, 10px);
+
+                        > strong {
+                            padding: 0.3rem;
+                            cursor: pointer;
+                        }
+                        > svg {
+                            width: 25px;
+                            height: 25px;
+                        }
                     }
                 }
             }

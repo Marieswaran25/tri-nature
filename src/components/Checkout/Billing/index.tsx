@@ -11,8 +11,8 @@ import Typography from '@components/Typography';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Districts } from '@utils/districts';
 import { Referrals } from '@utils/referrals';
-import { billingSchema } from 'src/lib/schema';
 import { usePathname } from 'next/navigation';
+import { billingSchema } from 'src/lib/schema';
 import { ROUTES } from 'src/routes';
 export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
     const {
@@ -49,6 +49,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
 
     return (
         <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit} onChange={handleFormChange}>
+            <Typography type="p2" weight="light" text="Enter your billing details to securely process your order." as="h3" color="gray" />
             <div className="group">
                 <CustomInput
                     label={'First name'}
@@ -57,6 +58,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
                     error={errors?.firstName?.message}
                     isRequired
                     groupClass={errors?.firstName?.message ? 'error' : ''}
+                    type="text"
                 />
                 <CustomInput
                     label={'Last name'}
@@ -65,6 +67,7 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
                     error={errors?.lastName?.message}
                     isRequired
                     groupClass={errors?.lastName?.message ? 'error' : ''}
+                    type="text"
                 />
             </div>
             <div className="group">

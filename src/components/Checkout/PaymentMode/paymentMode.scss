@@ -1,0 +1,52 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+
+.payment-mode {
+    width: 100%;
+    @include flex-model(column, flex-start, flex-start, 0.7rem);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    &.open {
+        max-height: 9999px;
+    }
+    > p {
+        align-self: flex-end;
+    }
+    > h3 {
+        padding-top: 0.5rem;
+        &::before {
+            content: '*';
+            color: red;
+        }
+    }
+
+    > form {
+        width: 100%;
+        @include flex-model(column, flex-start, flex-start, 1rem);
+        > .group {
+            width: 100%;
+            @include flex-model(row, center, flex-start, 0.5rem);
+            border: 1px solid $SilveringGray;
+            border-radius: 10px;
+            padding: 0.8rem;
+            cursor: pointer;
+            &.active {
+                border: 1px solid $C5;
+                box-shadow: 0 0 5px -2px $C5 inset;
+            }
+            > svg {
+                width: 30px;
+                height: 30px;
+            }
+            > .form-group-wrapper {
+                > .form-group {
+                    > input {
+                        width: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
