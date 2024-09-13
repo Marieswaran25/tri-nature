@@ -4,7 +4,7 @@ import './paymentMode.scss';
 import React from 'react';
 import COD from '@assets/images/payment/cod.svg';
 import Gpay from '@assets/images/payment/gpay.svg';
-import PhonePay from '@assets/images/payment/phonePay.svg';
+import PhonePay from '@assets/images/payment/phonepay.svg';
 import CustomInput from '@components/CustomInput';
 import Typography from '@components/Typography';
 import { PaymentOptions } from '@Customtypes/payment';
