@@ -68,6 +68,7 @@ export const OrderSummary = ({ isReady, user, signIn }: { isReady: boolean; user
                             type="submit"
                             loadingColor="white"
                             leftIcon={Google}
+                            backgroundColorOnHover={colors.B0}
                         />
                     </form>
                 </Modal>
