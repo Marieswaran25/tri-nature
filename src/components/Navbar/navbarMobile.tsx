@@ -24,6 +24,17 @@ export const NavbarMobile = ({ user, signIn, signOut }: { user: any; signIn: () 
     useEffect(() => {
         setToggle(false);
     }, [pathname, setToggle]);
+
+    useEffect(() => {
+        if (toggle) {
+            document.body.style.overflow = 'hidden';
+            Array.from(document.getElementsByClassName('index')).map(el => (el as HTMLElement).classList.add('blur'));
+        } else {
+            document.body.style.overflow = 'unset';
+            Array.from(document.getElementsByClassName('index')).map(el => (el as HTMLElement).classList.remove('blur'));
+        }
+    }, [toggle]);
+
     return (
         <>
             <div className="nav-mobile-group">

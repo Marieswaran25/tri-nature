@@ -24,6 +24,10 @@ body {
     svg {
         overflow: inherit;
     }
+    &.menu-opened {
+        overflow: hidden;
+        filter: blur(1px);
+    }
 }
 .index {
     &.blur {

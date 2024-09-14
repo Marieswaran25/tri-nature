@@ -32,6 +32,20 @@
                 border-bottom: none;
             }
         }
+        > button {
+            width: 100%;
+            border-radius: 0;
+            background: none;
+            @include flex-model(row, center, flex-start, 0.5rem);
+            padding: 0.5rem;
+            &:hover {
+                background-color: $B0 !important;
+            }
+            > svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
     }
     > .user-button {
         @include flex-model(row, center, center, 0.5rem);

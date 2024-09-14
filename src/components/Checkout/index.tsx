@@ -11,13 +11,14 @@ import Typography from '@components/Typography';
 import { useCart } from '@hooks/use-cart';
 import { useCustomSelect } from '@hooks/use-custom-select';
 import { useRouter } from 'next/navigation';
+import { User } from 'next-auth';
 import { ROUTES } from 'src/routes';
 
 import { Billing } from './Billing';
 import { OrderSummary } from './OrderSummary';
 import { PaymentMode } from './PaymentMode';
 
-export const Checkout = () => {
+export const Checkout = ({ user, signIn }: { user?: User; signIn: () => Promise<void> }) => {
     const { cartLoading, cart } = useCart();
     const [currentTarget, , , selectCurrentTarget] = useCustomSelect(0);
     const [success, setSuccess] = useState({
@@ -71,7 +72,7 @@ export const Checkout = () => {
                         </div>
                     </div>
                     <div className="order-summary-wrapper">
-                        <OrderSummary />
+                        <OrderSummary isReady={success.shipping && success.PaymentMode} user={user} signIn={signIn} />
                     </div>
                 </div>
             ) : (

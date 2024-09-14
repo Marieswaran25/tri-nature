@@ -5,7 +5,7 @@
 .user-mobile-btn-wrapper {
     position: relative;
     width: 100%;
-    @include flex-model(row, center, flex-start, 1rem);
+    @include flex-model(row, center, flex-start, 0.5rem);
     > svg {
         width: 20px;
         height: 20px;
@@ -14,7 +14,7 @@
     }
     > .user-settings {
         position: absolute;
-        top: 50px;
+        top: -50px;
         right: 0;
         width: 150px;
         height: auto;
@@ -38,6 +38,20 @@
             }
             &:last-child {
                 border-bottom: none;
+            }
+        }
+        > button {
+            width: 100%;
+            border-radius: 0;
+            background: none;
+            @include flex-model(row, center, flex-start, 0.5rem);
+            padding: 0.5rem;
+            &:hover {
+                background-color: $B0 !important;
+            }
+            > svg {
+                width: 20px;
+                height: 20px;
             }
         }
     }

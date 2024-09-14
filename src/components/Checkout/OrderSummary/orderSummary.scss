@@ -22,3 +22,32 @@
         }
     }
 }
+
+.login-modal {
+    > form {
+        width: 40%;
+        background-color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        @include mobile {
+            width: 100%;
+        }
+        > p {
+            text-align: center;
+        }
+        @include flex-model(column, center, center, 1rem);
+        > button {
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid $SilveringGray;
+            @include flex-model(row, center, center, 0.5rem);
+            > svg {
+                width: 25px;
+                height: 25px;
+            }
+            @include mobile {
+                width: 100%;
+            }
+        }
+    }
+}

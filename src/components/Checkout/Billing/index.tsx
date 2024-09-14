@@ -2,53 +2,60 @@
 import './billing.scss';
 import colors from '@theme/colors.module.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/Button';
 import CustomInput from '@components/CustomInput';
 import CustomSelect from '@components/CustomSelect';
 import Typography from '@components/Typography';
+import { LocalStorage } from '@Customtypes/localStorage';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Districts } from '@utils/districts';
 import { Referrals } from '@utils/referrals';
-import { usePathname } from 'next/navigation';
 import { billingSchema } from 'src/lib/schema';
-import { ROUTES } from 'src/routes';
 export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
     const {
         register,
         formState: { errors, dirtyFields },
         handleSubmit,
+        reset,
     } = useForm({
         resolver: yupResolver(billingSchema),
     });
-    const [isDirty, setDirty] = useState(false);
-    const pathname = usePathname();
-    const handleFormChange = () => {
-        setDirty(true);
-    };
+    // const [isDirty, setDirty] = useState(false);
+    // const pathname = usePathname();
+    // const handleFormChange = () => {
+    //     setDirty(true);
+    // };
 
+    useEffect(() => {
+        const localBilling = localStorage.getItem(LocalStorage.Billing);
+        if (localBilling) {
+            reset(JSON.parse(localBilling));
+        }
+    }, [reset]);
     const submit = handleSubmit(async data => {
-        console.log(data);
+        localStorage.setItem(LocalStorage.Billing, JSON.stringify(data));
         handleSuccess();
     });
-    useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-            if (isDirty && pathname !== `/${ROUTES.CHECKOUT}`) {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        };
 
-        window.addEventListener('beforeunload', handleBeforeUnload);
+    // useEffect(() => {
+    //     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    //         if (isDirty && pathname !== `/${ROUTES.CHECKOUT}`) {
+    //             e.preventDefault();
+    //             e.returnValue = '';
+    //         }
+    //     };
 
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [isDirty, pathname]);
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
+
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    // }, [isDirty, pathname]);
 
     return (
-        <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit} onChange={handleFormChange}>
+        <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit}>
             <Typography type="p2" weight="light" text="Enter your billing details to securely process your order." as="h3" color="gray" />
             <div className="group">
                 <CustomInput

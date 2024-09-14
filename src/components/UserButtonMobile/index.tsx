@@ -2,7 +2,9 @@
 import './userButtonMobile.scss';
 
 import React from 'react';
+import SignOut from '@assets/images/signOut.svg';
 import Dot from '@assets/images/threeDot.svg';
+import { Button } from '@components/Button';
 import Typography from '@components/Typography';
 import { useCustomSelect } from '@hooks/use-custom-select';
 import Image from 'next/image';
@@ -30,11 +32,11 @@ export const UserButtonMobile: React.FC<UserButtonMobileProps> = ({ user, signOu
                     <></>
                 )}
             </div>
-            <Typography type="p3" text={user?.name || ''} as="p" weight={'regular'} />
+            <Typography type="p2" text={user?.name || ''} as="p" weight={'regular'} />
             <Dot onClick={() => setOpenSettings(!openSettings)} />
 
             <div className={`user-settings ${openSettings ? 'open' : ''}`}>
-                <Typography type="p3" text={'Sign Out'} as="p" weight={'regular'} onClick={() => signOut()} />
+                <Button label={'Sign Out'} leftIcon={SignOut} onClick={() => signOut()} />
             </div>
         </div>
     );

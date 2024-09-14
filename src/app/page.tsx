@@ -21,7 +21,7 @@ export default async function Home() {
     }
 
     return (
-        <View className="product-list">
+        <View className="product-list index">
             {products.map((p, i) => (
                 <ProductCard key={i} productName={p.productName} productDescription={p.productDescription || ''} productImage={p.productUrl || ''} productPrice={p.cost} productId={p.id} />
             ))}

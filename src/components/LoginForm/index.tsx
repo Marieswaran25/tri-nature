@@ -11,7 +11,6 @@ import Typography from '@components/Typography';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
 import { APP_NAME } from 'src/config';
 import { loginSchema } from 'src/lib/schema';
 import { ROUTES } from 'src/routes';
