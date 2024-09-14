@@ -22,37 +22,20 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
     } = useForm({
         resolver: yupResolver(billingSchema),
     });
-    // const [isDirty, setDirty] = useState(false);
-    // const pathname = usePathname();
-    // const handleFormChange = () => {
-    //     setDirty(true);
-    // };
 
     useEffect(() => {
         const localBilling = localStorage.getItem(LocalStorage.Billing);
         if (localBilling) {
             reset(JSON.parse(localBilling));
+            handleSuccess();
         }
-    }, [reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const submit = handleSubmit(async data => {
         localStorage.setItem(LocalStorage.Billing, JSON.stringify(data));
         handleSuccess();
     });
-
-    // useEffect(() => {
-    //     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-    //         if (isDirty && pathname !== `/${ROUTES.CHECKOUT}`) {
-    //             e.preventDefault();
-    //             e.returnValue = '';
-    //         }
-    //     };
-
-    //     window.addEventListener('beforeunload', handleBeforeUnload);
-
-    //     return () => {
-    //         window.removeEventListener('beforeunload', handleBeforeUnload);
-    //     };
-    // }, [isDirty, pathname]);
 
     return (
         <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit}>
