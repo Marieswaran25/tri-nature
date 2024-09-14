@@ -1,20 +1,26 @@
 import { PrismaClient } from '@prisma/client';
 
+export let prismaInstance: PrismaClient;
+
+const prismaClientSingleton = () => {
+    return new PrismaClient({
+        datasources: {
+            db: {
+                url: process.env.POSTGRES_PRISMA_URL,
+            },
+        },
+    });
+};
+
 declare global {
-    var prisma: PrismaClient | undefined;
-}
-function prismaClientSingleton() {
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        if (!global.prisma) {
-            global.prisma = new PrismaClient();
-        }
-        return global.prisma;
-    } else {
-        if (!global.prisma) {
-            global.prisma = new PrismaClient();
-        }
-        return global.prisma;
-    }
+    var prismaGlobal: PrismaClient | undefined;
 }
 
-export const prismaInstance = prismaClientSingleton();
+if (process.env.NODE_ENV !== 'production') {
+    if (!globalThis.prismaGlobal) {
+        globalThis.prismaGlobal = prismaClientSingleton();
+    }
+    prismaInstance = globalThis.prismaGlobal;
+} else {
+    prismaInstance = prismaClientSingleton();
+}

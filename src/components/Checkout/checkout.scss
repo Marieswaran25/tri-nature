@@ -53,6 +53,13 @@
                             width: 25px;
                             height: 25px;
                         }
+                        > small {
+                            margin-left: auto;
+                            cursor: pointer;
+                            &:hover {
+                                color: $C9 !important;
+                            }
+                        }
                     }
                 }
             }

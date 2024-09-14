@@ -1,34 +1,63 @@
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
     provider  = "postgresql"
-    url       = "postgres://default:7OgDapFqt0vI@ep-shy-scene-31828553-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
-    directUrl = "postgres://default:7OgDapFqt0vI@ep-shy-scene-31828553.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+    url       = env("POSTGRES_PRISMA_URL")
+    directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Account {
+    id                String  @id @default(cuid())
+    userId            String  @map("user_id")
+    type              String
+    provider          String
+    providerAccountId String  @map("provider_account_id")
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@map("accounts")
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique @map("session_token")
+    userId       String   @map("user_id")
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
 }
 
 model User {
-    id        String   @id @default(uuid()) @db.VarChar(255)
-    username  String   @db.VarChar(255)
-    email     String   @unique @db.VarChar(255)
-    password  String?  @db.VarChar(255)
-    googleId  String?
-    avatarUrl String?  @db.VarChar(255)
-    createdAt DateTime @default(now()) @db.Timestamp(6)
-
-    sessions Session[]
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime? @map("email_verified")
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
 
     @@map("users")
 }
 
-model Session {
-    id        String   @id @default(cuid()) @db.VarChar(255)
-    userId    String   @db.VarChar(255)
-    expiresAt DateTime @db.Timestamp(6)
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model VerificationToken {
+    identifier String
+    token      String
+    expires    DateTime
 
-    @@map("sessions")
+    @@unique([identifier, token])
+    @@map("verificationtokens")
 }
 
 model Product {
@@ -72,3 +101,32 @@ model CartLineItem {
     @@index([cartId, productId])
     @@map("cart_line_items")
 }
+
+// model Profile {
+//     id        String    @id @default(uuid()) @db.VarChar(255)
+//     email     String    @db.VarChar(255)
+//     firstname String    @db.VarChar(255)
+//     lastname  String    @db.VarChar(255)
+//     addresses Address[]
+//     isActive  Boolean   @default(true)
+//     createdAt DateTime  @default(now()) @db.Timestamp(6)
+
+//     @@index([email])
+//     @@map("profile")
+// }
+
+// model Address {
+//     id           String   @id @default(uuid()) @db.VarChar(255)
+//     AddressLine1 String   @db.VarChar(255)
+//     AddressLine2 String?  @db.VarChar(255)
+//     mobile       String   @db.VarChar(255)
+//     city         String   @db.VarChar(255)
+//     district     String   @db.VarChar(255)
+//     state        String   @db.VarChar(255)
+//     pinCode      String   @db.VarChar(255)
+//     createdAt    DateTime @default(now()) @db.Timestamp(6)
+//     profileId    String   @db.VarChar(255)
+//     profile      Profile  @relation(fields: [profileId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+//     @@index([profileId])
+// }

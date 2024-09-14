@@ -3,6 +3,11 @@ const nextConfig = {
     images: {
         unoptimized: true,
         domains: ['t3.ftcdn.net', 'cdn.shopify.com/', 'cdn.sanity.io', 'pngimg.com', 'img.thecdn.in'],
+        remotePatterns: [
+            {
+                hostname: 'lh3.googleusercontent.com',
+            },
+        ],
     },
     webpack(config) {
         config.module.rules.push({

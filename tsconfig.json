@@ -29,7 +29,8 @@
             "@function/*": ["./src/functions/*"],
             "@helpers/*": ["./src/helpers/*"],
             "@services/*": ["./src/services/*"],
-            "@hooks/*": ["./src/hooks/*"]
+            "@hooks/*": ["./src/hooks/*"],
+            "@customAuth/*": ["./src/lib/auth.ts"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

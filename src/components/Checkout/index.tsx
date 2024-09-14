@@ -38,7 +38,20 @@ export const Checkout = () => {
                         <div className="checkout-items">
                             <div className="icon-wrapper">
                                 {success.shipping ? <Success /> : <Shipping />}
-                                <Typography type="p1" weight="semibold" text="Shipping" as="strong" color={'black'} onClick={() => selectCurrentTarget(0)} />
+                                <Typography type="p1" weight="semibold" text="Shipping" as="strong" color={'black'} />
+                                {success.shipping && (
+                                    <Typography
+                                        type="caption"
+                                        weight="semibold"
+                                        text="Edit"
+                                        as="small"
+                                        color={colors.LightCeruleanBlue}
+                                        onClick={() => {
+                                            selectCurrentTarget(0);
+                                            setSuccess(prev => ({ ...prev, shipping: false }));
+                                        }}
+                                    />
+                                )}
                             </div>
                             <Billing
                                 isActive={currentTarget === 0}
@@ -52,7 +65,7 @@ export const Checkout = () => {
                         <div className="checkout-items">
                             <div className="icon-wrapper">
                                 {success.PaymentMode ? <Success /> : <PaymentCard />}
-                                <Typography type="p1" weight="semibold" text="Payment Mode" as="strong" color={'black'} onClick={() => selectCurrentTarget(1)} />
+                                <Typography type="p1" weight="semibold" text="Payment Mode" as="strong" color={'black'} />
                             </div>
                             <PaymentMode isActive={currentTarget === 1} onSuccess={() => setSuccess(prev => ({ ...prev, PaymentMode: true }))} />
                         </div>

@@ -11,8 +11,7 @@ import Typography from '@components/Typography';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Login } from 'src/app/(auth)/login/action';
-import { signUp } from 'src/app/(auth)/signup/action';
+
 import { APP_NAME } from 'src/config';
 import { loginSchema } from 'src/lib/schema';
 import { ROUTES } from 'src/routes';
@@ -31,7 +30,7 @@ export const LoginForm = () => {
     const onLogin = handleSubmit(data => {
         try {
             startTransition(async () => {
-                const response: { error: string } | { success: boolean } = await Login(data);
+                const response: { error: string } | { success: boolean } = await Promise.resolve({ success: true, error: 'TODO' });
                 if ('error' in response) {
                     setError('root', { message: response.error });
                 }

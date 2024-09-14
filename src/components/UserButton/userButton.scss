@@ -1,0 +1,54 @@
+@import '@theme/colors.module.scss';
+@import '@theme/viewport.scss';
+@import '@theme/common.module.scss';
+
+.user-btn-wrapper {
+    position: relative;
+    > .user-settings {
+        position: absolute;
+        top: 50px;
+        left: -50px;
+        width: 150px;
+        height: auto;
+        border-radius: 5px;
+        max-height: 0;
+        overflow: hidden;
+        background-color: white;
+        transition: max-height 0.3s ease-in-out;
+        @include flex-model(column, flex-start, flex-start, 0);
+        &.open {
+            max-height: 500px;
+            box-shadow: 2px 4px 7px 4px #d4d4d4;
+        }
+        > p {
+            width: 100%;
+            padding: 0.5rem;
+            border-bottom: 1px solid $SilveringGray;
+            cursor: pointer;
+            &:hover {
+                background-color: $B0;
+            }
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+    > .user-button {
+        @include flex-model(row, center, center, 0.5rem);
+        > .user-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        > p {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: $B0;
+            @include flex-model(row, center, center, 0.5rem);
+            border: 1px solid $SilveringGray;
+            cursor: pointer;
+        }
+    }
+}

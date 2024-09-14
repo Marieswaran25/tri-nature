@@ -9,14 +9,14 @@ import Logout from '@assets/images/logout.svg';
 import Menu from '@assets/images/menu.svg';
 import { Button } from '@components/Button';
 import Typography from '@components/Typography';
+import { UserButtonMobile } from '@components/UserButtonMobile';
 import { useCart } from '@hooks/use-cart';
 import { useCustomSelect } from '@hooks/use-custom-select';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { APP_NAME } from 'src/config';
 import { ROUTES } from 'src/routes';
-export const NavbarMobile: React.FC = () => {
+export const NavbarMobile = ({ user, signIn, signOut }: { user: any; signIn: () => Promise<void>; signOut: () => Promise<void> }) => {
     const [toggle, setToggle, ref] = useCustomSelect(false);
     const { cart } = useCart();
     const pathname = usePathname();
@@ -54,10 +54,23 @@ export const NavbarMobile: React.FC = () => {
                     <Link href={ROUTES.OUR_PRODUCTS}>
                         <Typography type={'p2'} weight={'light'} text={'Our Products'} color={'black'} />
                     </Link>
-
-                    <Link href={ROUTES.LOGIN} className="button">
-                        <Button label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />} buttonType="primary" backgroundColor={colors.SS5} id="login-btn" type="button" />
-                    </Link>
+                    {!user && (
+                        <form
+                            action={async () => {
+                                await signIn();
+                            }}
+                        >
+                            <Button label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />} buttonType="primary" backgroundColor={colors.SS5} id="login-btn" type="submit" />
+                        </form>
+                    )}
+                    {user && (
+                        <UserButtonMobile
+                            user={user}
+                            signOut={async () => {
+                                await signOut();
+                            }}
+                        />
+                    )}
                 </div>
             </div>
         </>

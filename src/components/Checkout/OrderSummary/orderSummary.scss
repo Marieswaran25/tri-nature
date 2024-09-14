@@ -6,4 +6,19 @@
 .order-summary {
     width: 100%;
     @include flex-model(column, flex-start, flex-start, 1rem);
+    > hr {
+        border: 1px solid $SilveringGray;
+        width: 100%;
+    }
+    > .details {
+        width: 100%;
+        @include flex-model(row, center, space-between, 0.5rem);
+    }
+    > button {
+        width: 100%;
+        > svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
 }

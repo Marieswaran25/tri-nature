@@ -1,9 +1,0 @@
-@import '@theme/colors.module.scss';
-@import '@theme/viewport.scss';
-@import '@theme/common.module.scss';
-
-.sign-up-page {
-    width: 100%;
-    height: 100vh;
-    @include flex-model(row, center, center, 0);
-}

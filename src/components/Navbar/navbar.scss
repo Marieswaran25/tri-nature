@@ -16,13 +16,13 @@
         padding: 1.5rem 1.5rem;
         > .menu {
             @include flex-model(row, center, flex-end, 1.5rem);
-            > a {
-                &.button {
-                    width: 150px;
-                    > button {
-                        width: 100%;
-                    }
+            > form {
+                width: 150px;
+                > button {
+                    width: 100%;
                 }
+            }
+            > a {
                 &.cart {
                     width: 30px;
                     height: 30px;
@@ -121,6 +121,15 @@
         transition: left 0.3s ease;
         &.open {
             left: 0;
+        }
+        > form {
+            width: 100%;
+            margin-top: auto;
+            margin-bottom: 90px;
+        }
+        > .user-mobile-btn-wrapper {
+            margin-top: auto;
+            margin-bottom: 90px;
         }
         .logo-wrapper {
             width: 100%;
