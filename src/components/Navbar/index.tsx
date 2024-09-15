@@ -17,12 +17,16 @@ import { ROUTES } from 'src/routes';
 import { NavbarMobile } from './navbarMobile';
 
 export const NavBar = async () => {
-    const cart = await prismaInstance.cartLineItem.findMany({
-        where: {
-            cartId: cookies().get('cartId')?.value,
-        },
-    });
-    const session = await auth();
+    let cart = [];
+    let session;
+    try {
+        cart = await prismaInstance.cartLineItem.findMany({
+            where: {
+                cartId: cookies().get('cartId')?.value,
+            },
+        });
+        session = await auth();
+    } catch (error) {}
 
     return (
         <>
