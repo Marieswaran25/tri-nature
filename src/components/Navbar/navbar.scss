@@ -17,9 +17,15 @@
         > .menu {
             @include flex-model(row, center, flex-end, 1.5rem);
             > form {
-                width: 150px;
+                width: auto;
                 > button {
                     width: 100%;
+                    border-radius: 5px;
+                    border: 1px solid $SS5;
+                    > svg {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
             }
             > a {
@@ -109,7 +115,6 @@
         width: 80%;
         background-color: $White;
         position: absolute;
-        height: 100vh;
         left: -100%;
         top: 0;
         color: black !important;
@@ -125,11 +130,20 @@
         > form {
             width: 100%;
             margin-top: auto;
-            margin-bottom: 70px;
+            margin-bottom: 10px;
+            > button {
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid $SS5;
+                > svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
         }
         > .user-mobile-btn-wrapper {
             margin-top: auto;
-            margin-bottom: 70px;
+            margin-bottom: 10px;
         }
         .logo-wrapper {
             width: 100%;

@@ -5,6 +5,7 @@ import colors from '@theme/colors.module.scss';
 import React, { SetStateAction, useEffect, useState } from 'react';
 import Cart from '@assets/images/cart.svg';
 import Close from '@assets/images/close.svg';
+import Google from '@assets/images/google.svg';
 import Logout from '@assets/images/logout.svg';
 import Menu from '@assets/images/menu.svg';
 import { Button } from '@components/Button';
@@ -16,14 +17,29 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { APP_NAME } from 'src/config';
 import { ROUTES } from 'src/routes';
+
 export const NavbarMobile = ({ user, signIn, signOut }: { user: any; signIn: () => Promise<void>; signOut: () => Promise<void> }) => {
     const [toggle, setToggle, ref] = useCustomSelect(false);
+    const [height, setHeight] = useState(0);
     const { cart } = useCart();
     const pathname = usePathname();
 
     useEffect(() => {
         setToggle(false);
     }, [pathname, setToggle]);
+
+    useEffect(() => {
+        const updateHeight = () => {
+            setHeight(window.innerHeight);
+        };
+        updateHeight();
+
+        window.addEventListener('resize', updateHeight);
+
+        return () => {
+            window.removeEventListener('resize', updateHeight);
+        };
+    }, []);
 
     useEffect(() => {
         if (toggle) {
@@ -52,7 +68,7 @@ export const NavbarMobile = ({ user, signIn, signOut }: { user: any; signIn: () 
                         <Typography type={'caption'} weight={'light'} text={`${cart?.cartLineItems.length || 0}`} color={'white'} as="small" />
                     </Link>
                 </nav>
-                <div className={`nav-content ${toggle ? 'open' : ''}`} ref={ref}>
+                <div className={`nav-content ${toggle ? 'open' : ''}`} ref={ref} style={{ height: `${height}px` }}>
                     <div className="logo-wrapper">
                         <Link href={'/'}>
                             <Typography type={'p1'} weight={'light'} text={APP_NAME} color={colors.SS5} />
@@ -71,7 +87,15 @@ export const NavbarMobile = ({ user, signIn, signOut }: { user: any; signIn: () 
                                 await signIn();
                             }}
                         >
-                            <Button label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />} buttonType="primary" backgroundColor={colors.SS5} id="login-btn" type="submit" />
+                            <Button
+                                label={<Typography type="p2" weight="semibold" text={'Login with Google'} color="black" />}
+                                buttonType="primary"
+                                backgroundColor={'white'}
+                                id="login-btn"
+                                type="submit"
+                                leftIcon={Google}
+                                backgroundColorOnHover={colors.B0}
+                            />
                         </form>
                     )}
                     {user && (

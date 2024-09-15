@@ -3,6 +3,7 @@ import colors from '@theme/colors.module.scss';
 
 import React from 'react';
 import Cart from '@assets/images/cart.svg';
+import Google from '@assets/images/google.svg';
 import { Button } from '@components/Button';
 import Typography from '@components/Typography';
 import { UserButton } from '@components/UserButton';
@@ -63,11 +64,13 @@ export const NavBar = async () => {
                                 }}
                             >
                                 <Button
-                                    label={<Typography type="p2" weight="semibold" text={'Login'} color="white" />}
+                                    label={<Typography type="p2" weight="semibold" text={'Login with Google'} color="black" />}
                                     buttonType="primary"
-                                    backgroundColor={colors.SS5}
+                                    backgroundColor={'white'}
                                     id="login-btn"
                                     type="submit"
+                                    leftIcon={Google}
+                                    backgroundColorOnHover={colors.B0}
                                 />
                             </form>
                         )}

@@ -61,7 +61,7 @@ export const OrderSummary = ({ isReady, user, signIn }: { isReady: boolean; user
                         <Typography type="p1" text="You're just one step away." as="strong" color="black" weight={'semibold'} />
                         <Typography type="p2" text="To ensure a secure and personalized checkout experience, please sign in before completing your order. " as="p" color="black" weight={'light'} />
                         <Button
-                            label={<Typography type="p2" text="Login with Google" weight="semibold" as="p" color="black" />}
+                            label={<Typography type="p2" text="Continue with Google" weight="semibold" as="p" color="black" />}
                             buttonType="primary"
                             backgroundColor={'white'}
                             id="login-btn"
