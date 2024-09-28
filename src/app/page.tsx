@@ -17,7 +17,7 @@ export default async function Home() {
     try {
         products = (await prismaInstance.product.findMany()).sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
     } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching products: ', error);
     }
 
     return (
