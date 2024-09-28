@@ -47,6 +47,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Address       Address[]
 
     @@map("users")
 }
@@ -102,31 +103,19 @@ model CartLineItem {
     @@map("cart_line_items")
 }
 
-// model Profile {
-//     id        String    @id @default(uuid()) @db.VarChar(255)
-//     email     String    @db.VarChar(255)
-//     firstname String    @db.VarChar(255)
-//     lastname  String    @db.VarChar(255)
-//     addresses Address[]
-//     isActive  Boolean   @default(true)
-//     createdAt DateTime  @default(now()) @db.Timestamp(6)
+model Address {
+    id           String   @id @default(uuid()) @db.VarChar(255)
+    addressLine1 String   @db.VarChar(255)
+    addressLine2 String?  @db.VarChar(255)
+    mobile       String   @db.VarChar(255)
+    city         String   @db.VarChar(255)
+    district     String   @db.VarChar(255)
+    state        String   @db.VarChar(255)
+    pinCode      String   @db.VarChar(255)
+    createdAt    DateTime @default(now()) @db.Timestamp(6)
+    referral     String?  @db.VarChar(255)
+    userId       String   @db.VarChar(255)
+    User         User?    @relation(fields: [userId], references: [id])
 
-//     @@index([email])
-//     @@map("profile")
-// }
-
-// model Address {
-//     id           String   @id @default(uuid()) @db.VarChar(255)
-//     AddressLine1 String   @db.VarChar(255)
-//     AddressLine2 String?  @db.VarChar(255)
-//     mobile       String   @db.VarChar(255)
-//     city         String   @db.VarChar(255)
-//     district     String   @db.VarChar(255)
-//     state        String   @db.VarChar(255)
-//     pinCode      String   @db.VarChar(255)
-//     createdAt    DateTime @default(now()) @db.Timestamp(6)
-//     profileId    String   @db.VarChar(255)
-//     profile      Profile  @relation(fields: [profileId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-
-//     @@index([profileId])
-// }
+    @@map("addresses")
+}

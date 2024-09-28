@@ -10,10 +10,11 @@ import CustomSelect from '@components/CustomSelect';
 import Typography from '@components/Typography';
 import { LocalStorage } from '@Customtypes/localStorage';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Address } from '@prisma/client';
 import { Districts } from '@utils/districts';
 import { Referrals } from '@utils/referrals';
 import { billingSchema } from 'src/lib/schema';
-export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: () => void }) => {
+export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSuccess: boolean; handleSuccess: (data: Partial<Address>) => void }) => {
     const {
         register,
         formState: { errors, dirtyFields },
@@ -27,80 +28,38 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
         const localBilling = localStorage.getItem(LocalStorage.Billing);
         if (localBilling) {
             reset(JSON.parse(localBilling));
-            handleSuccess();
+            handleSuccess(JSON.parse(localBilling));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const submit = handleSubmit(async data => {
         localStorage.setItem(LocalStorage.Billing, JSON.stringify(data));
-        handleSuccess();
+        handleSuccess(data);
     });
 
     return (
         <form className={`billing-form ${isActive ? 'active' : ''}`} id="billing-form" onSubmit={submit}>
-            <Typography type="p2" weight="light" text="Enter your billing details to securely process your order." as="h3" color="gray" />
-            <div className="group">
-                <CustomInput
-                    label={'First name'}
-                    placeholder="Enter your firstname here"
-                    {...register('firstName')}
-                    error={errors?.firstName?.message}
-                    isRequired
-                    groupClass={errors?.firstName?.message ? 'error' : ''}
-                    type="text"
-                />
-                <CustomInput
-                    label={'Last name'}
-                    placeholder="Enter your lastname here"
-                    {...register('lastName')}
-                    error={errors?.lastName?.message}
-                    isRequired
-                    groupClass={errors?.lastName?.message ? 'error' : ''}
-                    type="text"
-                />
-            </div>
-            <div className="group">
-                <CustomInput
-                    type="email"
-                    placeholder="Enter your email"
-                    label="Email"
-                    isRequired
-                    {...register('email')}
-                    error={errors?.email?.message}
-                    groupClass={errors?.email?.message ? 'error' : ''}
-                />
-                <CustomInput
-                    type="tel"
-                    placeholder="Enter your mobile number"
-                    label="Mobile Number"
-                    {...register('mobile', { pattern: /^[0-9]{10}$/ })}
-                    maxLength={10}
-                    isRequired
-                    inputMode="numeric"
-                    error={errors?.mobile?.message}
-                    groupClass={errors?.mobile?.message ? 'error' : ''}
-                    info="Please enter valid registered mobile number, this will be used for communication"
-                />
-            </div>
+            <Typography type="p2" weight="light" text="Enter your shipping details to securely process your order." as="h3" color="gray" />
+
             <div className="group">
                 <CustomInput
                     type="text"
                     placeholder="House, apartment, floor etc."
                     label="Address Line 1"
                     isRequired
-                    {...register('mainAddress')}
-                    error={errors?.mainAddress?.message}
-                    groupClass={errors?.mainAddress?.message ? 'error' : ''}
+                    {...register('addressLine1')}
+                    error={errors?.addressLine1?.message}
+                    groupClass={errors?.addressLine1?.message ? 'error' : ''}
                 />
                 <CustomInput
                     type="text"
                     placeholder="Street, road etc."
                     label="Address Line 2"
                     isRequired
-                    {...register('subAddress')}
-                    error={errors?.subAddress?.message}
-                    groupClass={errors?.subAddress?.message ? 'error' : ''}
+                    {...register('addressLine2')}
+                    error={errors?.addressLine2?.message}
+                    groupClass={errors?.addressLine2?.message ? 'error' : ''}
                 />
             </div>
 
@@ -127,12 +86,12 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
                     type="tel"
                     placeholder="Enter your pin code"
                     label="Pin Code"
-                    {...register('postalCode')}
+                    {...register('pinCode')}
                     maxLength={6}
                     inputMode="numeric"
                     isRequired
-                    error={errors?.postalCode?.message}
-                    groupClass={errors?.postalCode?.message ? 'error' : ''}
+                    error={errors?.pinCode?.message}
+                    groupClass={errors?.pinCode?.message ? 'error' : ''}
                 />
                 <CustomSelect
                     placeholder={'Choose referral'}
@@ -146,6 +105,20 @@ export const Billing = ({ isActive, handleSuccess }: { isActive: boolean; isSucc
                     error={errors?.referredBy?.message}
                     {...register('referredBy')}
                     isValid={dirtyFields.referredBy}
+                />
+            </div>
+            <div className="group">
+                <CustomInput
+                    type="tel"
+                    placeholder="Enter your mobile number"
+                    label="Mobile Number"
+                    {...register('mobile', { pattern: /^[0-9]{10}$/ })}
+                    maxLength={10}
+                    isRequired
+                    inputMode="numeric"
+                    error={errors?.mobile?.message}
+                    groupClass={errors?.mobile?.message ? 'error' : ''}
+                    info="Please enter valid registered mobile number, this will be used for communication"
                 />
             </div>
             <Button

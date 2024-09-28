@@ -41,6 +41,37 @@
                     @include tablet {
                         width: 100%;
                     }
+                    > .checkout-items-wrapper {
+                        width: 100%;
+                        @include flex-model(column, flex-start, flex-start, 0.2rem);
+                        > .icon-wrapper {
+                            width: 100%;
+                            @include flex-model(row, center, flex-start, 10px);
+
+                            > strong {
+                                padding: 0.3rem;
+                                cursor: pointer;
+                            }
+                            > svg {
+                                width: 25px;
+                                height: 25px;
+                            }
+                            > small {
+                                margin-left: auto;
+                                cursor: pointer;
+                                &:hover {
+                                    color: $C9 !important;
+                                }
+                            }
+                        }
+                        > .content {
+                            > span {
+                                @include mobile {
+                                    line-height: 1.4rem;
+                                }
+                            }
+                        }
+                    }
                     > .icon-wrapper {
                         width: 100%;
                         @include flex-model(row, center, flex-start, 10px);

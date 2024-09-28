@@ -1,4 +1,5 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import { cookies } from 'next/headers';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 
@@ -12,4 +13,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             clientSecret: process.env.AUTH_GOOGLE_SECRET,
         }),
     ],
+    callbacks: {
+        async signIn(params) {
+            cookies().set('userId', params.user.id || '', { path: '/', sameSite: 'strict', secure: true, httpOnly: true });
+            return true;
+        },
+    },
 });
